@@ -1,0 +1,8 @@
+---
+
+- name: Install PostgreSQL
+  include_tasks: "install.yml"
+
+- name: Ensure the PostgreSQL service is running
+  include_tasks: "start.yml"
+  

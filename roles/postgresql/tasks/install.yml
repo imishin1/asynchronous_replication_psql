@@ -1,0 +1,9 @@
+---
+- name: Install PostgreSQL
+  apt:
+    name: "{{  item  }}"
+    update_cache: true
+    state: latest
+  loop:
+    - postgresql
+ 

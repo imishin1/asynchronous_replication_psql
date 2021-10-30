@@ -1,0 +1,4 @@
+---
+
+- name: Install python modules
+  include_tasks: "install.yml"
