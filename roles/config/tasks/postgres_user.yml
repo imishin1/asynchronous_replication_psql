@@ -8,3 +8,11 @@
     method: trust
   notify: Restart postgres
 
+- name: Modify pg_hba host
+  postgresql_pg_hba:
+    dest: "{{  pg_hba_dir  }}"
+    contype: host
+    users: postgres
+    method: trust
+    source: "{{  ansible_default_ipv4.address  }}/32"
+  notify: Restart postgres

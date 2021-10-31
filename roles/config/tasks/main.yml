@@ -1,8 +1,16 @@
 ---
 - name: Modify pg_hba.conf for postgres user
   include_tasks: "postgres_user.yml"
+- include_tasks: "restart.yml"
 
 - name: Create user for replication and modife pg_hba.conf for replica and master hosts
   include_tasks: "replica_user.yml"
+
+- name: Configurate postgresql.conf to tune PostgreSQL for asynchronous replication 
+  include_tasks: "postgresql_conf.yml"
+- include_tasks: "restart.yml"
+
+- name: Sync data on replica with master
+  include_tasks: "pg_basebackup.yml"
 
 

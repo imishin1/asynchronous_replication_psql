@@ -1,0 +1,32 @@
+---
+
+- name: Stop postgresql service
+  service:
+    name: postgresql
+    state: stopped
+  when: inventory_hostname == 'replica_1'    
+
+- name: Move data directory and save it as backup
+  shell: "mv {{  postgresql_data_dir  }} {{  postgresql_data_dir  }}-backup-directory"
+  when: inventory_hostname == 'replica_1'
+
+- name: Create data directory
+  file:
+    path: "{{  postgresql_data_dir  }}"
+    mode: 0700
+    owner: postgres
+    group: postgres
+    state: directory
+  when: inventory_hostname == 'replica_1'
+
+- name: Make pg_basebackup on replica to sync data with master
+  shell: su - postgres -c "PGPASSWORD='{{  db_password  }}' pg_basebackup --host={{  master_host  }} --username={{  db_user  }} --pgdata={{  postgresql_data_dir  }} --wal-method=stream --write-recovery-conf"
+  become: yes
+  become_method: sudo
+  when: inventory_hostname == 'replica_1'
+
+- name: Start postgresql service
+  service:
+    name: postgresql
+    state: started
+  when: inventory_hostname == 'replica_1'
