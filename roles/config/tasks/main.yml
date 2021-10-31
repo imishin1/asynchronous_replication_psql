@@ -1,5 +1,8 @@
 ---
-- name: Modify pg_hba.conf for postgres user and create user for replication
-  include_tasks: "users.yml"
+- name: Modify pg_hba.conf for postgres user
+  include_tasks: "postgres_user.yml"
+
+- name: Create user for replication and modife pg_hba.conf for replica and master hosts
+  include_tasks: "replica_user.yml"
 
 

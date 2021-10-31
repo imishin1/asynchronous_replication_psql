@@ -1,12 +1,12 @@
 ---
-# Hosts ip
-master_host: 10.92.5.213
+# hosts
+master_host: 10.92.5.140
 replica_host: 10.92.5.9
-
 
 # Variables for replication user 
 db_user: replica_user
 db_password: password
+db_name: postgres
 
 # The list of postgres directory
 pg_hba_dir: /etc/postgresql/12/main/pg_hba.conf

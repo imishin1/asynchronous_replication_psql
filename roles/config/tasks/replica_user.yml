@@ -1,0 +1,38 @@
+---
+- name: Create user for replication
+  postgresql_user:
+    state: present
+    name: "{{  db_user  }}"
+    password: "{{  db_password  }}"
+    db: "{{  db_name  }}"
+    role_attr_flags: REPLICATION
+
+- name: Modify ph_hba.conf for replication user
+  postgresql_pg_hba:
+    dest: "{{  pg_hba_dir  }}"
+    contype: local
+    users: "{{  db_user  }}"
+    method: trust
+  notify: Restart postgres
+
+- name: Modify pg_hba.conf for replication user on master
+  postgresql_pg_hba:
+    dest: "{{  pg_hba_dir  }}"
+    contype: host
+    users: "{{  db_user  }}"
+    method: md5
+    databases: replication
+    source: "{{  replica_host  }}/32"
+  when: inventory_hostname == "master_1"
+  notify: Restart postgres
+
+- name: Modify pg_hba.conf for replication user on replica
+  postgresql_pg_hba:
+    dest: "{{  pg_hba_dir  }}"
+    contype: host
+    users: "{{  db_user  }}"
+    method: md5
+    databases: replication
+    source: "{{  master_host  }}/32"
+  when: inventory_hostname == "replica_1"
+  notify: Restart postgres
