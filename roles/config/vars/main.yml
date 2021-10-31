@@ -1,0 +1,21 @@
+---
+# Hosts ip
+master_host: 10.92.5.213
+replica_host: 10.92.5.9
+
+
+# Variables for replication user 
+db_user: replica_user
+db_password: password
+
+# The list of postgres directory
+pg_hba_dir: /etc/postgresql/12/main/pg_hba.conf
+postgresql_conf_dir: /etc/postgresql/12/main/postgresql.conf
+postgresql_data_dir: /var/lib/postgresql/12/main
+
+# Variables for postgresql.conf
+wal_level: "hot_standby"
+archive_mode: "on"
+archive_command: "'cd .'"
+max_wal_senders: 8
+hot_standby: "on"

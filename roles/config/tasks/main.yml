@@ -1,0 +1,5 @@
+---
+- name: Modify pg_hba.conf for postgres user and create user for replication
+  include_tasks: "users.yml"
+
+

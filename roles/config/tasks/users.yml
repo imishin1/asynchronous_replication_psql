@@ -1,0 +1,10 @@
+---
+
+- name: Modify pg_hba.conf for postgres
+  postgresql_pg_hba:
+    dest: "{{  pg_hba_dir  }}"
+    contype: local
+    users: postgres
+    method: trust
+  notify: Restart postgres
+

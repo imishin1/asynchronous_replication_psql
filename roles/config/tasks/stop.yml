@@ -1,0 +1,9 @@
+---
+- name: Stop postgresql servcie
+  service:
+    name: postgresql
+    state: stopped
+  register: some_vari
+
+- debug:
+    var: some_vari.stdout
