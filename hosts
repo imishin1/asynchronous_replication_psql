@@ -1,11 +1,11 @@
 [master_servers]
-master_1    ansible_host=10.92.5.213
+master_1     ansible_host=10.92.5.140
 
 [replica_servers]
-replica_1    ansible_host=10.92.5.9
+replica_1    ansible_host=10.92.5.9 
 
-[all_servers:children]
-master_servers
-replica_servers
+[all_servers]
+master_1
+replica_1
 
 
