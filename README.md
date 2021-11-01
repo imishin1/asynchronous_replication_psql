@@ -85,6 +85,15 @@ You can start the deployment and configuration process as follows:
 ansible-playbook main.yml -i hosts
 ```
 
+Сheck that everything works correctly:
+On master:
+```
+select * from pg_stat_replication;
+```
+On slave:
+```
+select * from pg_stat_wal_receiver;
+```
 
 # Still to do
 
