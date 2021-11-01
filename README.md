@@ -47,21 +47,28 @@ File tree
 └── vars
     └── main.yml
 ```
+Change ansible_user and ansible_ssh_private_key in ./group_vars/all_servers:
+```
+---
+ansible_user : ubuntu
+ansible_ssh_private_key : /home/ubuntu/.ssh/id_rsa
+```
 
 Change ansible_host for your master and replica in file hosts:
 ```
 [master_servers]
-master_1    ansible_host=10.92.5.140
+master_1    ansible_host=10.236.30.178
+
 [replica_servers]
-replica_1    ansible_host=10.92.5.9
+replica_1    ansible_host=10.236.30.64
 ```
 Change the variables for asynchronous replication in vars of role config:
 
 !!!change master and replica hosts is necessary!!!
 ```
 --hosts
-master_host: 10.92.5.140
-replica_host: 10.92.5.9
+master_host: 10.236.30.178
+replica_host: 10.236.30.64
 
 --Variables for replication user
 db_user: replica_user
